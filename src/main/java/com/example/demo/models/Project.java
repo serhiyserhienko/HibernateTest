@@ -7,8 +7,8 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "Projects")
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,6 @@ public class User {
     @Column(name = "Name")
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Address> address;
-
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private Set<Project> projects;
+    @ManyToMany
+    private Set<User> users;
 }

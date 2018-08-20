@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class Address {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
 
@@ -25,6 +26,7 @@ public class Address {
     private int building;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "userId")
     private User user;
 
@@ -42,5 +44,16 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(id, city, street, building);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Address{");
+        sb.append("id=").append(id);
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", street='").append(street).append('\'');
+        sb.append(", building=").append(building);
+        sb.append('}');
+        return sb.toString();
     }
 }

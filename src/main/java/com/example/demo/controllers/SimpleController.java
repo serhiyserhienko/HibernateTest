@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
 import com.example.demo.models.Address;
 import com.example.demo.models.User;
@@ -57,4 +57,15 @@ public class SimpleController {
         return ResponseEntity.ok(userRepository.save(user).getId());
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable int id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.setName("Robert");
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
